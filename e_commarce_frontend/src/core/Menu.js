@@ -13,10 +13,11 @@ const currentTab = (history, path) => {
 };
 
 const Menu = ({ history }) => (
-  <div>
-    <ul className="nav nav-tabs bg-dark">
+  <div className="container-fluid fixed-top" style={{backgroundColor:"black"}}>
+    <ul className="nav  nav-pills justify-content-center">
       <li className="nav-item">
         <Link style={currentTab(history, "/")} className="nav-link" to="/">
+        <span><i class=" fa fa-home fa-fw"></i></span>
           Home
         </Link>
       </li>
@@ -26,6 +27,7 @@ const Menu = ({ history }) => (
           className="nav-link"
           to="/cart"
         >
+          <span><i class="fa fa-shopping-cart fa-fw"></i></span>
           Cart
         </Link>
       </li>
@@ -41,19 +43,19 @@ const Menu = ({ history }) => (
         </li>
       )}
       {isAuthenticated() && isAuthenticated().user.role===1 && (
-        <li className="nav-item">
+        <li className="nav-item ">
           <Link
             style={currentTab(history, "/admin/dashboard")}
             className="nav-link"
             to="/admin/dashboard"
           >
-            A. Dashboard
+            Admin Dashboard
           </Link>
         </li>
       )}
       {!isAuthenticated() && (
           <Fragment>
-          <li className="nav-item">
+          <li className="nav-item ">
             <Link
               style={currentTab(history, "/signup")}
               className="nav-link"
@@ -74,12 +76,12 @@ const Menu = ({ history }) => (
         </Fragment>
       )}
       {isAuthenticated() && (  //conditional rendering of Signout
-        <li className="nav-item">
+        <li className="nav-item ">
           <span
-           className="nav-link text-warning"
+           className="nav-link text-white"
            onClick={()=>{
              signout(()=>{
-               history.push("/")
+               history.push("/signin")
              })
            }}
           >
@@ -89,6 +91,7 @@ const Menu = ({ history }) => (
       )} 
     </ul>
   </div>
+
 );
 
 export default withRouter(Menu);

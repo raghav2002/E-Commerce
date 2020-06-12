@@ -5,6 +5,9 @@
         "carthelper",
         "gettoken",
         "imgurl",
+        "in",
+        "showbtdrop",
+        "showbtdrop in",
         "signin",
         "signout",
         "tshirt"

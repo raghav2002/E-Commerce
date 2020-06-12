@@ -58,7 +58,7 @@ const AdminDashBoard = ()=>{
 
     return (
         <Base title="Welcome to the Admin Page" 
-        description="manage all your user ans product here"
+        description="manage all your user and product here"
         className="container bg-success p-4"
         >
             <div className="row">

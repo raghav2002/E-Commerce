@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { loadCart, EmptyTheCart } from './helper/carthelper'
-import { getMeToken, processPayment } from './helper/paymentBHelper'
+import { getMeToken, processPayment, pushOrderInPurchaseList } from './helper/paymentBHelper'
 import {createOrder} from "./helper/orderhelper"
 import { isAuthenticated } from '../auth/helper'
 
@@ -28,7 +28,6 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
                 setInfo({...info,error:response.error})
             }else{
                 const clientToken=response.clientToken
-                console.log("TOKEN received at client",response);
                 setInfo({clientToken})
             }
         })
@@ -62,16 +61,20 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
             }
             processPayment(userId,token,paymentData)
             .then(response=>{
+                console.log(response);
                 setInfo({...info,success:response.success,loading:false})
                 console.log("PAYMENT SUCCESS");
                 EmptyTheCart(()=>{
                     setReload(!reload)
                 })
+                pushOrderInPurchaseList(userId,token,products,response.transaction.id,()=>{
+                    console.log("successfully add order ot purchase list");
+                })
             })
             .catch(err=>{
                 setInfo({loading:false,success:false})
                 
-                console.log("PAYMENT falied");
+                console.log("PAYMENT failed");
 
             })
         })
@@ -91,8 +94,9 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
 
     return (
         <div>
-            <h3>Your bill is {getAmount()}</h3>
+            <h1 className="mb-0 pb-0">Total Amount <span className="text-warning">${getAmount()}</span></h1>
             {showbtdropIn()}
+            {info.success && <p>Payment Successful<span><i class="fa fa-check-circle fa-fw"></i></span></p>}
         </div>
     )
 }

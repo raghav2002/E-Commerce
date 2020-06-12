@@ -2,29 +2,29 @@ import React,{useState,useEffect} from "react";
 import "../styles.css";
 import { API } from "../backend";
 import Base from "./Base";
-import Card from "./Card"
+import Cart_Card from "./Cart-Card"
 import { loadCart } from "./helper/carthelper";
 import { Link } from "react-router-dom";
 import PaymentB from "./paymentB";
+import { isAuthenticated } from "../auth/helper";
+
 
 
 const Cart=()=>{
-    
+
     const [products, setProducts] = useState([])
     const [reload, setReload] = useState(false)
 
     useEffect(() => {
         setProducts(loadCart())
     }, [reload])
-    
+
     const loadAllProduct=()=>{
         return (
-            products && products.length==0 ? 
-            <Link to="/" className="nav-link alert alert-success">Cart is Empty! shop Now</Link>:
             <div>
-            <h2>product in Cart</h2>
+            <h1>Products in Cart</h1>
             {products.map((product,index)=>{
-                return (<Card 
+                return (<Cart_Card
                     key={index}
                     product={product}
                     addToCart={false}
@@ -35,17 +35,34 @@ const Cart=()=>{
             })}
         </div>
         )
-    }
-   
-    
+    } 
     return (
-        <Base title="Home Page" description="Welcome to the Tshirt Store">
-            <div className="row text-center">
-                <div className="col-md-6">{loadAllProduct()}</div>
-                <div className="col-md-6">
-                    <PaymentB products={products} setReload={setReload}/>
+        <Base title="Your Shoppings" description="Checkout your awesome collections">
+            {!isAuthenticated()?(
+                <div className="text-center text-muted">
+                <h3 >please <Link to="/signin" className="text-white">LogIn</Link> to your check cart
+                </h3>
                 </div>
-            </div>
+            )
+            :(
+                !products || products.length===0 ?
+            (
+                <div className="text-center">
+                <h3 >no items in <span className="display-4"><i class=" fa fa-shopping-cart fa-fw"></i></span>
+                </h3>
+                <Link to="/" className="btn btn-block btn-dark">shop now</Link>
+                </div>
+            )
+            :(
+                <div className="container-fluid row text-center">
+                    <div className="col-md-6 border-right">{loadAllProduct()}</div>
+                    <div className="col-md-6">
+                    <PaymentB products={products} setReload={setReload}/>
+                    </div>
+                </div>
+            )
+
+            )}
         </Base>
     );
 }

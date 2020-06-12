@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import ImageHelper from './helper/ImageHelper';
-import {Redirect} from "react-router-dom"
+import {Redirect, Link} from "react-router-dom"
 import {AddItemToCart, RemoveItemFromCart} from "./helper/carthelper"
 const Card = ({
   product,
@@ -25,55 +25,50 @@ const Card = ({
         }
       }
 
-      const showAddToCart=()=>{
-        return (
-          addToCart && (
-            <button
-              onClick={addItemToCart}
-              className="btn btn-block btn-outline-success mt-2 mb-2"
-            >
-            Add to Cart
-          </button>
-          )
-        )
-      }
-
       const showRemoveFromCart=()=>{
         return (
           removeFromCart && (
+            <div>
+              <p className="text-center text-warning my-0">${product.price}</p>
             <button
               onClick={() => {
                 RemoveItemFromCart(product._id)
                 setReload(!reload)
               }}
-              className="btn btn-block btn-outline-danger mt-2 mb-2"
+              className="btn btn-sm btn-outline-danger mt-2 mb-2"
             >
             Remove from cart
           </button>
+            </div>
           )
         )
       }
 
+      
       return (
-        <div className="card text-white bg-dark border border-info ">
-          <div className="card-header lead">{cardTitle}</div>
-          <div className="card-body">
-            {getARedirect()}
-            <ImageHelper product={product} />
-            <p className="lead bg-success font-weight-normal text-wrap">
-              {cardDescription}
-            </p>
-            <p className="btn btn-success rounded  btn-sm px-4">$ {cardPrice}</p>
-            <div className="row">
-              <div className="col-12">
-                {showAddToCart()}
-              </div>
-              <div className="col-12">
-                {showRemoveFromCart()}
+            <div class="card text-white" style={{backgroundColor:"black"}}>
+              {getARedirect()}
+              <ImageHelper product={product}/>
+              <div class="card-body card-body-cascade text-center border border-top-0">
+                <p className="class-text lead bg-black font-weight-normal text-wrap mt-0">{cardDescription}</p>
+                <h5 class="card-title text-muted">
+                  {cardTitle+" "}
+                </h5>
+                <div class="card-footer">
+                  {addToCart && (
+                    <div>
+                      <span class="float-left text-warning">${cardPrice}</span>
+                      <span class="float-right">
+                        <span className="text-white" onClick={addItemToCart} title="Add to Cart"><i class="fas fa fa-shopping-cart mr-3"></i></span>
+                        <Link  title="Share"><i class="fas fa fa-share-alt mr-3"></i></Link>
+                        <Link className="active"  title="Added to Wishlist"><i class="fas fa fa-heart"></i></Link>
+                      </span>
+                    </div>
+                  )}
+                  {showRemoveFromCart()}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
       );
   };
 

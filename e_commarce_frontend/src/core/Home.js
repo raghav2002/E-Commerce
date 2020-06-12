@@ -27,16 +27,16 @@ export default function Home() {
 
   return (
     <Base title="Home Page" description="Welcome to the Tshirt Store">
-        <h1 className="text-white">All of t-shirts</h1>
-      <div className="row text-center">
-        <div className="row">
+        <h3 className="text-muted text-center py-4">Deals of the day
+        <span><p className="badge badge-warning">offers</p></span>
+        </h3>
+        <div className="row text-center card-group">
           {products.map((product,index)=>{
-            return (<div key={index} className="col-4 mb-4">
+            return (<div key={index} className="col-md-3 mb-4">
               <Card product={product} />
             </div>)
           })}
         </div>
-      </div>
     </Base>
   );
 }

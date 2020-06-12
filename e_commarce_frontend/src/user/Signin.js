@@ -12,7 +12,7 @@ const Signin = () => {
         didRedirect : false
     })
 
-    const {user} = isAuthenticated(); // 
+    const {user} = isAuthenticated(); //
 
     const handleChange = (event)=>{
         setValues({...values,[event.target.name]:event.target.value,error:false});
@@ -103,7 +103,6 @@ const Signin = () => {
         {errorMessage()}
         {signInForm()}
         {performRedirect()}
-        <p className="text-white text-center">{JSON.stringify(values)}</p>
         </Base>
     );
 };

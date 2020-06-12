@@ -60,16 +60,17 @@ exports.userPurchaseList = (req,res)=>{
 
 /****************middle ware**************************/
 exports.pushOrderInPurchaseList = (req,res,next)=>{
+    
     let purchases = []
-    req.body.order.products.forEach(product=>{
+    req.body.products.forEach(product=>{
         purchases.push({
             _id : product._id,
             name : product.name,
             description : product.description,
             category : product.category,
             quantity : product.quantity,
-            amount : product.order.amount,
-            transaction_id : req.body.order.transaction_id
+            amount : product.price,
+            transaction_id : req.body.transaction_id
         })
     })
 
@@ -86,6 +87,7 @@ exports.pushOrderInPurchaseList = (req,res,next)=>{
             next();
         }
     )
+    next()
 }
 
 
