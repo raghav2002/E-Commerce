@@ -42,7 +42,7 @@ if(process.env.NODE_ENV==="production"){
 
 console.log("dir ",path.resolve(__dirname));
 console.log("FE ",path.resolve(__dirname,'../',"e_commerce_frontend","build"));
-fs.readdir(path.resolve(__dirname,'../'),(err,files)=>{
+fs.readdir(path.resolve(__dirname,'../',"e_commerce_frontend"),(err,files)=>{
     if (err) {
         return console.log('Unable to scan directory: ' + err);
     } 
