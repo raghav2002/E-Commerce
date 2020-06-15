@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path")
+const fs = require("fs")  // just to debug deployment at heroku
+
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
@@ -37,8 +39,20 @@ if(process.env.NODE_ENV==="production"){
         res.sendFile(path.resolve(__dirname,'../',"e_commerce_frontend","build","index.html"))
     })
 }
-console.log(path.resolve(__dirname,'../',"e_commerce_frontend","build"));
-console.log("hello");
+
+console.log("dir ",path.resolve(__dirname));
+console.log("FE ",path.resolve(__dirname,'../',"e_commerce_frontend","build"));
+fs.readdir(__dirname,(err,files)=>{
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    } 
+    //listing all files using forEach
+    files.forEach(function (file) {
+        // Do whatever you want to do with the file
+        console.log("DIR ",file); 
+    });
+})
+
 
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
