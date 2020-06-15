@@ -9,7 +9,7 @@
     },
     "scripts": {
       "start": "node e_commerce_backend/app.js",
-      "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix e_commerce_frontend npm run build --prefix e_commerce_frontend"
+      "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix e_commerce_frontend && npm run build --prefix e_commerce_frontend"
     },
     "keywords": [],
     "author": "",
