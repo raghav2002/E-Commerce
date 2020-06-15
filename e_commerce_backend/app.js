@@ -40,18 +40,18 @@ if(process.env.NODE_ENV==="production"){
     })
 }
 
-console.log("dir ",path.resolve(__dirname));
-console.log("FE ",path.resolve(__dirname,'../',"e_commerce_frontend","build"));
-fs.readdir(path.resolve(__dirname,'../',"e_commerce_frontend"),(err,files)=>{
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    } 
-    //listing all files using forEach
-    files.forEach(function (file) {
-        // Do whatever you want to do with the file
-        console.log("DIR ",file); 
-    });
-})
+// console.log("dir ",path.resolve(__dirname));
+// console.log("FE ",path.resolve(__dirname,'../',"e_commerce_frontend","build"));
+// fs.readdir(path.resolve(__dirname,'../',"e_commerce_frontend"),(err,files)=>{
+//     if (err) {
+//         return console.log('Unable to scan directory: ' + err);
+//     } 
+//     //listing all files using forEach
+//     files.forEach(function (file) {
+//         // Do whatever you want to do with the file
+//         console.log("DIR ",file); 
+//     });
+// })
 
 
 mongoose.connect(process.env.DATABASE,{
