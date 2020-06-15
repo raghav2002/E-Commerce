@@ -37,8 +37,8 @@ if(process.env.NODE_ENV==="production"){
         res.sendFile(path.resolve(__dirname,'../',"e_commerce_frontend","build","index.html"))
     })
 }
-// console.log(path.resolve(__dirname,'../',"e_commerce_frontend","build"));
-
+console.log(path.resolve(__dirname,'../',"e_commerce_frontend","build"));
+console.log("hello");
 
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
