@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engine" : {
+    "node":"12.3.1",
+    "npm": "6.9.0"
+  },
   "scripts": {
-    "start": "test.js"
+    "start": "app.js",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix e_commerce_frontend npm run build --prefix e_commerce_frontend"
   },
   "keywords": [],
   "author": "",

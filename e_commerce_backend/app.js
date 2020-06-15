@@ -6,6 +6,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path")
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
@@ -20,6 +21,7 @@ app.use(cors());
 
 
 //**************************All Routes*************************
+
 app.use("/api",authRoutes); //authRoutes is mounted on /api route 
 app.use("/api",userRoutes);
 app.use("/api",categoryRoutes)
@@ -27,6 +29,14 @@ app.use("/api",productRoutes)
 app.use("/api",orderRoutes)
 app.use("/api",paymentBRoutes)
 
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static(path.resolve(__dirname,'../',"e_commerce_frontend","build")))
+
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'../',"e_commerce_frontend","build","index.html"))
+    })
+}
+// console.log(path.resolve(__dirname,'../',"e_commerce_frontend","build"));
 
 
 mongoose.connect(process.env.DATABASE,{
