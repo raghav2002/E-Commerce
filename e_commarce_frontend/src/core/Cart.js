@@ -22,7 +22,7 @@ const Cart=()=>{
     const loadAllProduct=()=>{
         return (
             <div>
-            <h1>Products in Cart</h1>
+            <h2 className="h2 text-muted">Products in Cart</h2>
             {products.map((product,index)=>{
                 return (<Cart_Card
                     key={index}
@@ -55,7 +55,7 @@ const Cart=()=>{
             )
             :(
                 <div className="container-fluid row text-center">
-                    <div className="col-md-6 border-right">{loadAllProduct()}</div>
+                    <div className="col-md-6">{loadAllProduct()} </div>
                     <div className="col-md-6">
                     <PaymentB products={products} setReload={setReload}/>
                     </div>

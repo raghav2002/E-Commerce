@@ -13,7 +13,7 @@ const currentTab = (history, path) => {
 };
 
 const Menu = ({ history }) => (
-  <div className="container-fluid fixed-top" style={{backgroundColor:"black"}}>
+  <div className=" sticky-top" style={{backgroundColor:"black"}}>
     <ul className="nav  nav-pills justify-content-center">
       <li className="nav-item">
         <Link style={currentTab(history, "/")} className="nav-link" to="/">
@@ -49,7 +49,7 @@ const Menu = ({ history }) => (
             className="nav-link"
             to="/admin/dashboard"
           >
-            Admin Dashboard
+            Dashboard
           </Link>
         </li>
       )}

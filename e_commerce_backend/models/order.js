@@ -12,7 +12,7 @@ const ProductInCartSchema = new mongoose.Schema({
 })
 
 const OrderSchema = new mongoose.Schema({
-    products : [ProductInCartSchema],
+    products : [],
     user : {
         type:ObjectId,
         ref:"User"
@@ -20,13 +20,13 @@ const OrderSchema = new mongoose.Schema({
     address : String,
     status : {
         type : String,
-        default : "",
+        default : "Processing",
         enum : ["Cancelled","delivered","Shipped","Processing","Received"]
     },
     transaction_id : {},
     amount : {type : Number},
     updated : Date
-})
+},{timestamps:true})
 
 const ProductInCart = mongoose.model("ProductInCart",ProductInCartSchema);
 const Order = mongoose.model("Order",OrderSchema);

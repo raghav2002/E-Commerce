@@ -30,7 +30,7 @@ export default function Home() {
         <h3 className="text-muted text-center py-4">Deals of the day
         <span><p className="badge badge-warning">offers</p></span>
         </h3>
-        <div className="row text-center card-group">
+        <div className="row">
           {products.map((product,index)=>{
             return (<div key={index} className="col-md-3 mb-4">
               <Card product={product} />

@@ -6,67 +6,20 @@ const AdminDashBoard = ()=>{
 
     const {user:{name,email,role}} = isAuthenticated();
 
-    const adminLeftSide = ()=>{
-        return (
-            <div className="card">
-                <h4 className="card-header bg-dark text-white">Admin Navigation</h4>
-                <ul className="list-group">
-                    <li className="list-group-item">
-                        <Link to="/admin/create/categories" className="nav-link text-success">
-                            Create Categories
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link to="/admin/categories" className="nav-link text-success">
-                            Manage Categories
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link to="/admin/create/product" className="nav-link text-success">
-                            Create Product
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link to="/admin/products" className="nav-link text-success">
-                            Manage Product
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link to="/admin/orders" className="nav-link text-success">
-                            Manage Orders
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        )
-    }
-    const adminRightSide = ()=>{
-        return (
-            <div className="card">
-                <h4 className="card-header">Admin Information</h4>
-                <ul className="list-group">
-                    <li className="list-group-item">
-                        <span className="badge badge-success">Name: </span>  {name}
-                    </li>
-                    <li className="list-group-item">
-                        <span className="badge badge-success">Email: </span>  {email}
-                    </li>
-                </ul>
-            </div>
-        )
-    }
+    
 
     return (
-        <Base title="Welcome to the Admin Page" 
+        <Base title= {`Welcome ${name}`}
         description="manage all your user and product here"
-        className="container bg-success p-4"
+        className=""
         >
             <div className="row">
-                <div className="col-3">
-                    {adminLeftSide()}
-                </div>
-                <div className="col-9">
-                    {adminRightSide()}
+                <div className="col-md-4 offset-md-4">
+                    <h5 className="text-center text-muted">Admin Navigation</h5>
+                    <Link to="/admin/create/categories" className="btn btn-warning btn-block">Create Categories</Link>
+                    <Link to="/admin/create/product" className="btn btn-warning btn-block">Create Product</Link>
+                    <Link to="/admin/products" className="btn btn-warning btn-block">Manage Product</Link>
+                    <Link to="/admin/orders" className="btn btn-warning btn-block">Manage Order</Link>
                 </div>
             </div>
         </Base>

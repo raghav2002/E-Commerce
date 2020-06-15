@@ -89,7 +89,7 @@ const  AddProduct = ()=>{
         <form >
           <span>Post photo</span>
           <div className="form-group">
-            <label className="btn btn-block btn-success">
+            <label className="btn btn-block btn-info">
               <input
                 onChange={handleChange("photo")}
                 type="file"
@@ -148,7 +148,7 @@ const  AddProduct = ()=>{
             />
           </div>
           
-          <button type="submit" onClick={onSubmit} className="btn btn-outline-success mb-3">
+          <button type="submit" onClick={onSubmit} className="btn btn-warning btn-block mb-3">
             Create Product
           </button>
         </form>
@@ -159,10 +159,10 @@ const  AddProduct = ()=>{
         <Base
         title="Create a Product Here"
         description="Welcome to product creation section"
-        className="container bg-info p-4"
+        className="container p-4"
         >
-        <Link to="/admin/dashboard" className="btn btn-success btn-md">Admin Home</Link>
-        <div className="row bg-dark text-white rounded">
+        <Link className="btn btn-sm btn-warning mb-3" to="/admin/dashboard"><i class="fa fa-arrow-left fa-fw"></i>Back</Link>
+        <div className="row  text-white rounded">
             <div className="col-md-8 offset-md-2">
                 {successMessage()}
                 {errorMessage()}

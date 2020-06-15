@@ -36,30 +36,29 @@ const ManageProducts = ()=>{
     }
 
     return (
-    <Base title="Welcome admin" description="Manage products here">
-        <h2 className="mb-4">All products:</h2>
-        <Link className="btn btn-info" to={`/admin/dashboard`}>
-            <span className="">Admin Home</span>
-        </Link>
+    <Base title="Welcome admin" description="Manage products here" className="container">
+
+        <Link className="btn btn-sm btn-warning mb-3" to="/admin/dashboard"><i class="fa fa-arrow-left fa-fw"></i>Back</Link>
+        <h2 className="text-center text-white mb-4">All products</h2>
         <div className="row">
             <div className="col-12">
-            <h2 className="text-center text-white my-3">Total 3 products</h2>
+            <h5 className="text-center text-muted my-3">Total <span className="text-white">{products.length}</span> products</h5>
 
             {products.map((product,index)=>{
                 return (<div key={index} className="row text-center mb-2 ">
                     <div className="col-4">
-                    <h3 className="text-white text-left">{product.name}</h3>
+                    <p className="text-white text-left">{product.name}</p>
                     </div>
                     <div className="col-4">
                     <Link
-                        className="btn btn-success"
+                        className="badge badge-pill badge-primary"
                         to={`/admin/product/update/${product._id}`}
                     >
                         <span className="">Update</span>
                     </Link>
                     </div>
                     <div className="col-4">
-                    <button onClick={() => {removeProduct(product._id)}} className="btn btn-danger">
+                    <button onClick={() => {removeProduct(product._id)}} className="badge badge-pill badge-danger">
                         Delete
                     </button>
                     </div>

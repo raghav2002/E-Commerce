@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from 'react';
-import ImageHelper from './helper/ImageHelper';
 import {Redirect, Link} from "react-router-dom"
 import {AddItemToCart, RemoveItemFromCart} from "./helper/carthelper"
+import ImageHelper from "../core/helper/ImageHelper"
+import { API } from '../backend';
 const Cart_Card = ({
   product,
   addToCart=true,
@@ -15,56 +16,32 @@ const Cart_Card = ({
       const cardDescription = product ? product.description : "Default Description";
       const cardPrice = product ? product.price : "Default";
 
-      const addItemToCart=()=>{
-        AddItemToCart(product,()=>{setRedirect(true)})
+
+      const handleClick=()=>{
+        RemoveItemFromCart(product._id)
+        setReload(!reload)
+        
       }
 
-      const getARedirect=()=>{
-        if(redirect){
-          return <Redirect to="/cart"/>
-        }
-      }
-
-      const showRemoveFromCart=()=>{
+      const image=()=>{
+        const imgurl = product ?`${API}/product/photo/${product._id}` : `https://picsum.photos/400/300`
         return (
-          removeFromCart && (
-            <button
-              onClick={() => {
-                RemoveItemFromCart(product._id)
-                setReload(!reload)
-              }}
-              className="btn btn-danger btn-block py-2"
-            >
-            Remove from cart
-          </button>
-          )
-        )
-      }
-
+          <div>
+              <img
+                src={imgurl}
+                alt="photo"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+              />
+          </div>
+      )
+    }
       
       return (
-        <div class="container-fluid">
-        {getARedirect()}
-              <div class="row">
-                  <div className="col-6 mt-3 px-0">
-                    <ImageHelper product={product}/>
-                  </div>
-                  <div className="col-6 mt-3">
-                    <div className="card row bg-dark">
-                      <div className="col-12 card-header">
-                        <h5>{product.name}</h5>
-                      </div>
-                      <div className="col-12">
-                        <p>{product.description}</p>
-                      </div>
-                      <div className="col-12 text-warning">
-                        <p>Price: ${product.price}</p>
-                      </div>
-                      {showRemoveFromCart()}
-                    </div>
-                  </div>
-              </div>
-          </div>
+        <div className="border border-top-0 border-warning">
+          {image()}
+          <p className="m-0">{cardTitle}</p>
+          <h4><span className="badge badge-warning">${cardPrice}</span>  <span className="badge badge-danger" onClick={handleClick}><i class="fa fa-trash"></i></span></h4>
+        </div>
       );
   };
 

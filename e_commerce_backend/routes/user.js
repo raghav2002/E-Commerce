@@ -12,6 +12,6 @@ routes.put("/user/:userId",isSignedIn,isAuthenticated,updateUser)
 
 routes.get("/orders/user/:userId",userPurchaseList)
 
-routes.post("/orders/push/:userId?",pushOrderInPurchaseList)
+routes.post("/orders/push/:userId",pushOrderInPurchaseList)
 
 module.exports = routes

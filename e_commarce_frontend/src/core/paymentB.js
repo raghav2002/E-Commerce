@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { loadCart, EmptyTheCart } from './helper/carthelper'
 import { getMeToken, processPayment, pushOrderInPurchaseList } from './helper/paymentBHelper'
 import {createOrder} from "./helper/orderhelper"
@@ -8,7 +8,7 @@ import { isAuthenticated } from '../auth/helper'
 import DropIn from "braintree-web-drop-in-react"
 
 
-const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
+const PaymentB = ({history,products,setReload=f=>f,reload=undefined})=>{
 
     const [info, setInfo] = useState({
         loading:false,
@@ -37,14 +37,14 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
         return (
             <div>
                 {info.clientToken!=null && products.length>0 ?(
-                    <div>
+                    <div className="mt-0">
                         <DropIn
                             options={{ authorization: info.clientToken }}
                             onInstance={(instance) => (info.instance = instance)}
                         />
                         <button className="btn btn-block btn-success" onClick={onPurchase}>Buy</button>
                     </div>
-                ):(<h3>add something to cart or login</h3>)}
+                ):(<h3 className="alert alert-info">Loading.....</h3>)}
             </div>
         )
     }
@@ -64,12 +64,19 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
                 console.log(response);
                 setInfo({...info,success:response.success,loading:false})
                 console.log("PAYMENT SUCCESS");
-                EmptyTheCart(()=>{
-                    setReload(!reload)
-                })
+                const orderData = {
+                    products: products,
+                    transaction_id: response.transaction.id,
+                    amount: response.transaction.amount
+                  };
+                  createOrder(userId, token, orderData)
                 pushOrderInPurchaseList(userId,token,products,response.transaction.id,()=>{
                     console.log("successfully add order ot purchase list");
                 })
+                  EmptyTheCart(()=>{
+                    setReload(!reload)
+                })
+                  
             })
             .catch(err=>{
                 setInfo({loading:false,success:false})
@@ -92,11 +99,16 @@ const PaymentB = ({products,setReload=f=>f,reload=undefined})=>{
        getToken(userId,token)
     }, [])
 
+    const onSuccess=()=>{
+        return <Redirect to="/user/dashboard"/>
+    }
+
     return (
         <div>
-            <h1 className="mb-0 pb-0">Total Amount <span className="text-warning">${getAmount()}</span></h1>
+            <h2 className="h2 text-muted">Total Amount <span className="text-warning heading">${getAmount()}</span></h2>
             {showbtdropIn()}
-            {info.success && <p>Payment Successful<span><i class="fa fa-check-circle fa-fw"></i></span></p>}
+            {info.success && onSuccess()}
+
         </div>
     )
 }

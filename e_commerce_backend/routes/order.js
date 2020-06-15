@@ -11,7 +11,9 @@ routes.param("userId",getUserById);
 routes.param("orderId",getOrderById);
 
 //create
-routes.post("/order/create/:userId",isSignedIn,isAuthenticated,pushOrderInPurchaseList,updateStock,createOrder)
+// routes.post("/order/create/:userId",isSignedIn,isAuthenticated,updateStock,createOrder)
+routes.post("/order/create/:userId",isSignedIn,isAuthenticated,createOrder)
+
 
 //read
 routes.get("/order/all/:userId",isSignedIn,isAuthenticated,isAdmin,getAllOrders)

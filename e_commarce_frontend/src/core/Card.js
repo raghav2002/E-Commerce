@@ -49,7 +49,7 @@ const Card = ({
             <div class="card text-white" style={{backgroundColor:"black"}}>
               {getARedirect()}
               <ImageHelper product={product}/>
-              <div class="card-body card-body-cascade text-center border border-top-0">
+              <div class="card-body card-body-cascade text-center border border-top-0 border-light">
                 <p className="class-text lead bg-black font-weight-normal text-wrap mt-0">{cardDescription}</p>
                 <h5 class="card-title text-muted">
                   {cardTitle+" "}

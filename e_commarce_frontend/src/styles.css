@@ -13,3 +13,15 @@ body {
   border-bottom: 1px solid white;
 }
 
+.test:hover{
+  background-color: yellow;
+}
+
+/* .responsive{
+  font-size:3vw
+} */
+
+.braintree-placeholder{
+  display: none;
+}
+

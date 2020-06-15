@@ -27,20 +27,20 @@ exports.updateUser = (req,res)=>{
         {_id : req.profile._id},
         {$set : req.body},
         {new:true,useFindAndModify : false},
-        (err,user)=>{
-            if(err){
-                return res.status(400).json({ //TODO  : change status code
-                    error : "you can't change"
-                })
-            }
-            //disable crucial info
-            req.profile.salt = undefined;
-            req.profile.encry_password = undefined;
-            req.profile.createdAt = undefined;
-            req.profile.updatedAt = undefined
-            res.json(user)
+    ).exec((err,user)=>{
+        if(err){
+            return res.status(400).json({ //TODO  : change status code
+                error : "you can't change"
+            })
         }
-    )
+        //disable crucial info
+        req.profile.salt = undefined;
+        req.profile.encry_password = undefined;
+        req.profile.createdAt = undefined;
+        req.profile.updatedAt = undefined
+        return res.json(user)
+    })
+    
 }
 
 
@@ -62,12 +62,13 @@ exports.userPurchaseList = (req,res)=>{
 exports.pushOrderInPurchaseList = (req,res,next)=>{
     
     let purchases = []
+    
     req.body.products.forEach(product=>{
         purchases.push({
             _id : product._id,
             name : product.name,
             description : product.description,
-            category : product.category,
+            category : product.category,    
             quantity : product.quantity,
             amount : product.price,
             transaction_id : req.body.transaction_id
@@ -84,10 +85,9 @@ exports.pushOrderInPurchaseList = (req,res,next)=>{
                     error : "Unable to save purchase list"
                 })
             }
-            next();
         }
     )
-    next()
+    return next()
 }
 
 
